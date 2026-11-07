@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Protocole Masculin — Avant de continuer</title>
+<title>Bien-être masculin</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,238 +13,223 @@
      CONFIGURAÇÃO — mexa só aqui
      ============================================================ */
   :root{
-    /* Para onde vai quem clica "Oui, voir la présentation" */
-    --url-continuar: "https://vitalite.vsalestech.shop/";
+    --url-continuar: "https://vitalite.vsalestech.shop/";  /* botão "Oui" */
   }
-  /* Comportamento do "Non, pas maintenant":
-     - deixe TELA_DESPEDIDA = true  -> mostra uma tela de despedida educada (recomendado p/ revisão da Meta)
-     - mude para false              -> redireciona para uma 404 (coloque a url em URL_RECUSA abaixo)        */
+  /* TELA_DESPEDIDA = true  -> agradecimento dentro da página (recomendado p/ Meta)
+     TELA_DESPEDIDA = false -> redireciona para URL_RECUSA                           */
   /* ============================================================ */
 
   *{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --noir:#0d0d0f;
-    --noir-2:#17171b;
+    --noir:#0b0b0d;
     --or:#c9a24b;
-    --or-clair:#e6c878;
-    --craie:#f3efe6;
-    --craie-2:#cfc9bd;
+    --or-clair:#e9cf82;
+    --craie:#f4efe4;
+    --craie-2:#c7c1b4;
+    --craie-3:#8f897d;
     --ligne:rgba(201,162,75,.22);
+    --carte:rgba(255,255,255,.035);
+    --carte-bord:rgba(255,255,255,.09);
   }
   html,body{height:100%}
   body{
-    background:var(--noir);
-    color:var(--craie);
-    font-family:"Inter",system-ui,sans-serif;
-    line-height:1.55;
+    background:var(--noir);color:var(--craie);
+    font-family:"Inter",system-ui,sans-serif;line-height:1.55;
     -webkit-font-smoothing:antialiased;
-    display:flex;
-    flex-direction:column;
-    min-height:100dvh;
-    overflow-x:hidden;
+    display:flex;flex-direction:column;min-height:100dvh;overflow-x:hidden;
   }
-  /* fundo discreto */
   body::before{
-    content:"";
-    position:fixed;inset:0;
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
     background:
-      radial-gradient(130% 90% at 50% -10%, rgba(201,162,75,.10), transparent 60%),
-      radial-gradient(100% 70% at 50% 120%, rgba(201,162,75,.06), transparent 55%);
-    pointer-events:none;
-    z-index:0;
+      radial-gradient(120% 80% at 50% -10%, rgba(201,162,75,.11), transparent 58%),
+      radial-gradient(100% 60% at 50% 115%, rgba(201,162,75,.06), transparent 55%);
   }
   .wrap{
-    position:relative;z-index:1;
-    width:100%;
-    max-width:560px;
-    margin:0 auto;
-    padding:28px 22px calc(28px + env(safe-area-inset-bottom));
-    flex:1;
-    display:flex;
-    flex-direction:column;
+    position:relative;z-index:1;width:100%;max-width:540px;margin:0 auto;
+    padding:34px 22px calc(30px + env(safe-area-inset-bottom));
+    flex:1;display:flex;flex-direction:column;
   }
 
-  .sceau{
-    width:42px;height:42px;flex:none;
-    border:1px solid var(--or);
-    border-radius:50%;
-    display:grid;place-items:center;
-    font-family:"Fraunces",serif;
-    font-weight:600;font-size:17px;
-    color:var(--or-clair);
-    letter-spacing:.5px;
+  /* aviso topo */
+  .note{
+    font-size:11.5px;color:var(--craie-3);text-align:center;
+    letter-spacing:.02em;margin:0 auto;max-width:360px;line-height:1.55;
   }
 
-  /* ---------- Conteúdo ---------- */
-  main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 0}
+  /* progresso */
+  .barre{display:flex;gap:6px;margin:16px auto 0;max-width:260px;width:100%}
+  .barre[hidden]{display:none}
+  .barre span{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.1);transition:background .35s}
+  .barre span.on{background:var(--or)}
 
-  .kicker{
-    font-size:12.5px;
-    color:var(--or-clair);
-    display:inline-flex;align-items:center;gap:8px;
-    margin-bottom:18px;
+  .etape{flex:1;display:flex;flex-direction:column;justify-content:center;padding:26px 0}
+  .etape[hidden]{display:none}
+
+  .sur{font-size:12.5px;color:var(--or-clair);letter-spacing:.04em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .sur::before{content:"";width:20px;height:1px;background:var(--or)}
+
+  .q{
+    font-family:"Fraunces",serif;font-weight:500;
+    font-size:clamp(24px,6.6vw,31px);line-height:1.17;color:#fff;margin-bottom:24px;letter-spacing:-.01em;
   }
-  .kicker::before{content:"";width:22px;height:1px;background:var(--or)}
 
+  .choix{display:flex;flex-direction:column;gap:11px}
+  .choix button{
+    -webkit-tap-highlight-color:transparent;width:100%;text-align:left;cursor:pointer;
+    background:var(--carte);border:1px solid var(--carte-bord);border-radius:14px;
+    padding:17px 18px;color:var(--craie);font-family:inherit;font-size:15.5px;font-weight:500;
+    display:flex;align-items:center;gap:13px;transition:border-color .2s,background .2s,transform .1s;
+  }
+  .choix button:hover{border-color:var(--or);background:rgba(201,162,75,.07)}
+  .choix button:active{transform:scale(.99)}
+  .puce{width:22px;height:22px;flex:none;border-radius:50%;border:1.5px solid var(--craie-3);transition:.2s}
+  .choix button:hover .puce{border-color:var(--or)}
+
+  /* resultado */
+  .result{text-align:center}
   h1{
-    font-family:"Fraunces",serif;
-    font-weight:500;
-    font-size:clamp(28px,8vw,38px);
-    line-height:1.12;
-    letter-spacing:-.01em;
-    color:#fff;
-    margin-bottom:18px;
+    font-family:"Fraunces",serif;font-weight:500;
+    font-size:clamp(26px,7vw,34px);line-height:1.15;letter-spacing:-.01em;color:#fff;margin-bottom:16px;text-align:left;
   }
   h1 em{font-style:italic;color:var(--or-clair)}
+  .intro{font-size:15.5px;color:var(--craie-2);margin-bottom:26px}
 
-  .intro{font-size:15.5px;color:var(--craie-2);margin-bottom:24px}
-
-  .avis{
-    border:1px solid var(--ligne);
-    border-radius:14px;
-    background:linear-gradient(180deg, rgba(23,23,27,.7), rgba(13,13,15,.4));
-    padding:18px 18px 6px;
-    margin-bottom:26px;
-  }
-  .avis li{
-    list-style:none;
-    display:flex;gap:11px;
-    font-size:14px;
-    color:var(--craie);
-    padding-bottom:13px;
-  }
-  .avis li svg{flex:none;margin-top:2px;color:var(--or)}
-  .avis li b{color:#fff;font-weight:600}
-
-  /* ---------- Botões ---------- */
-  .actions{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+  .actions{display:flex;flex-direction:column;gap:12px;margin-top:6px}
   .btn{
-    -webkit-tap-highlight-color:transparent;
-    width:100%;
-    border:0;
-    border-radius:13px;
-    padding:17px 20px;
-    font-family:inherit;
-    font-size:15.5px;
-    font-weight:600;
-    cursor:pointer;
-    text-align:center;
-    text-decoration:none;
-    display:block;
-    transition:transform .12s ease, filter .2s ease, border-color .2s ease;
+    -webkit-tap-highlight-color:transparent;width:100%;border:0;border-radius:13px;
+    padding:17px 20px;font-family:inherit;font-size:15.5px;font-weight:600;
+    cursor:pointer;text-align:center;text-decoration:none;display:block;
+    transition:transform .12s,filter .2s,border-color .2s,color .2s;
   }
   .btn:active{transform:scale(.985)}
   .btn-oui{
-    background:linear-gradient(180deg,var(--or-clair),var(--or));
-    color:#2a1e05;
-    box-shadow:0 10px 30px -12px rgba(201,162,75,.6);
-    position:relative;
+    background:linear-gradient(180deg,var(--or-clair),var(--or));color:#2a1e05;
+    box-shadow:0 10px 30px -12px rgba(201,162,75,.6);position:relative;
   }
   .btn-oui:hover{filter:brightness(1.05)}
   @media (prefers-reduced-motion:no-preference){
     .btn-oui{animation:pulse 2s ease-in-out infinite}
     @keyframes pulse{
-      0%,100%{box-shadow:0 10px 30px -12px rgba(201,162,75,.6), 0 0 0 0 rgba(201,162,75,.45)}
-      50%{box-shadow:0 10px 34px -10px rgba(201,162,75,.75), 0 0 0 12px rgba(201,162,75,0)}
+      0%,100%{box-shadow:0 10px 30px -12px rgba(201,162,75,.6),0 0 0 0 rgba(201,162,75,.42)}
+      50%{box-shadow:0 10px 34px -10px rgba(201,162,75,.78),0 0 0 12px rgba(201,162,75,0)}
     }
   }
   .btn-oui:active{animation:none}
-  .btn-non{
-    background:transparent;
-    color:var(--craie-2);
-    border:1px solid rgba(243,239,230,.18);
-    font-weight:500;
-  }
-  .btn-non:hover{border-color:rgba(243,239,230,.35);color:var(--craie)}
+  .btn-non{background:transparent;color:var(--craie-2);border:1px solid rgba(244,239,228,.17);font-weight:500}
+  .btn-non:hover{border-color:rgba(244,239,228,.33);color:var(--craie)}
 
-  .mentions{
-    margin-top:22px;
-    font-size:11.5px;
-    color:rgba(207,201,189,.6);
-    text-align:center;
-    line-height:1.6;
-  }
-
-  /* ---------- Tela de despedida ---------- */
-  #adieu{display:none;flex:1;flex-direction:column;justify-content:center;text-align:center;padding:40px 0}
-  #adieu.on{display:flex}
-  #adieu h2{font-family:"Fraunces",serif;font-weight:500;font-size:26px;color:#fff;margin-bottom:12px}
-  #adieu p{font-size:15px;color:var(--craie-2);max-width:360px;margin:0 auto}
-  #adieu .sceau{margin:0 auto 22px}
+  .mentions{margin-top:20px;font-size:11.5px;color:rgba(199,193,180,.6);text-align:center;line-height:1.6}
 
   @media (prefers-reduced-motion:no-preference){
-    main>*{animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
-    main>*:nth-child(1){animation-delay:.02s}
-    main>*:nth-child(2){animation-delay:.08s}
-    main>*:nth-child(3){animation-delay:.14s}
-    main>*:nth-child(4){animation-delay:.2s}
-    main>*:nth-child(5){animation-delay:.26s}
-    @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    .etape:not([hidden])>*{animation:rise .42s cubic-bezier(.2,.7,.2,1) both}
+    .etape:not([hidden])>*:nth-child(2){animation-delay:.05s}
+    .etape:not([hidden])>*:nth-child(3){animation-delay:.1s}
+    .etape:not([hidden])>*:nth-child(4){animation-delay:.15s}
+    @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
   }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <main id="porte">
-      <div class="kicker">Avant de continuer</div>
-      <h1>Une présentation <em>sur votre bien-être</em>, en toute transparence.</h1>
+
+    <p class="note">Contenu informatif sur le bien-être · aucun avis médical.</p>
+    <div class="barre" id="barre">
+      <span class="on"></span><span></span><span></span>
+    </div>
+
+    <!-- Q1 -->
+    <section class="etape" id="e-q1">
+      <div class="sur">Question 1 / 3</div>
+      <p class="q">Au cours de la journée, votre niveau d'énergie est plutôt…</p>
+      <div class="choix" data-q="1">
+        <button><span class="puce"></span>Stable, je tiens la journée sans baisse</button>
+        <button><span class="puce"></span>Correct le matin, en chute l'après-midi</button>
+        <button><span class="puce"></span>Souvent fatigué, même après le repos</button>
+      </div>
+    </section>
+
+    <!-- Q2 -->
+    <section class="etape" id="e-q2" hidden>
+      <div class="sur">Question 2 / 3</div>
+      <p class="q">Et votre sommeil, ces derniers temps ?</p>
+      <div class="choix" data-q="2">
+        <button><span class="puce"></span>Réparateur, je me réveille en forme</button>
+        <button><span class="puce"></span>Léger, je me réveille plusieurs fois</button>
+        <button><span class="puce"></span>Agité, je me lève déjà fatigué</button>
+      </div>
+    </section>
+
+    <!-- Q3 -->
+    <section class="etape" id="e-q3" hidden>
+      <div class="sur">Question 3 / 3</div>
+      <p class="q">Votre vitalité et votre libido au quotidien ?</p>
+      <div class="choix" data-q="3">
+        <button><span class="puce"></span>Au rendez-vous, comme avant</button>
+        <button><span class="puce"></span>En baisse depuis quelque temps</button>
+        <button><span class="puce"></span>Nettement moins présente qu'avant</button>
+      </div>
+    </section>
+
+    <!-- RESULTADO -->
+    <section class="etape result" id="e-fin" hidden>
+      <h1>D'après vos réponses, <em>cette présentation est faite pour vous.</em></h1>
       <p class="intro">
-        Dans quelques instants, vous accéderez à une présentation vidéo dédiée à l'énergie,
-        au sommeil et à la vitalité des hommes au quotidien. Prenez un instant pour lire ceci.
+        Nous avons préparé une présentation vidéo sur l'énergie, le sommeil et la
+        vitalité des hommes au quotidien — à explorer à votre rythme, en toute discrétion.
       </p>
-
-      <ul class="avis">
-        <li>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8 8 11 4.5-3 8-6 8-11V5l-8-3z"/></svg>
-          <span>Un contenu <b>éducatif et informatif</b> sur les habitudes de vie et le bien-être.</span>
-        </li>
-        <li>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-          <span><b>Aucun avis médical.</b> Ceci ne remplace pas une consultation, un diagnostic ni une ordonnance.</span>
-        </li>
-        <li>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>Pour toute question de santé, <b>consultez un professionnel qualifié.</b></span>
-        </li>
-      </ul>
-
       <div class="actions">
         <a class="btn btn-oui" id="oui" href="#">Oui, voir la présentation</a>
-        <button class="btn btn-non" id="non" type="button">Non, pas maintenant</button>
+        <button class="btn btn-non" id="non" type="button">Non, merci</button>
       </div>
-
       <p class="mentions">
-        En continuant, vous confirmez avoir 18 ans ou plus et comprendre le caractère
-        informatif de ce contenu. Les résultats varient d'une personne à l'autre.
+        Contenu informatif. Ne remplace pas l'avis d'un professionnel de santé.
+        Pour toute question, consultez un professionnel qualifié.
       </p>
-    </main>
-
-    <section id="adieu">
-      <div class="sceau">PM</div>
-      <h2>Comme vous voulez.</h2>
-      <p>Merci de votre visite. Prenez soin de vous — et n'hésitez pas à revenir quand le moment sera venu.</p>
     </section>
+
   </div>
 
 <script>
-  // ---- configuração ----
   var URL_CONTINUAR = getComputedStyle(document.documentElement).getPropertyValue('--url-continuar').trim().replace(/^["']|["']$/g,'');
-  var TELA_DESPEDIDA = true;          // false = redireciona a recusa
-  var URL_RECUSA = "/404";            // usada só se TELA_DESPEDIDA = false
+  var TELA_DESPEDIDA = true;
+  var URL_RECUSA = "/404";
+
+  var ordre = ['e-q1','e-q2','e-q3','e-fin'];
+  var i = 0;
+  var barre = document.getElementById('barre');
+  var segs = barre.querySelectorAll('span');
+
+  function montrer(n){
+    document.getElementById(ordre[i]).hidden = true;
+    i = n;
+    var id = ordre[i];
+    document.getElementById(id).hidden = false;
+    var estQ = (id!=='e-fin');
+    barre.hidden = !estQ;
+    if(estQ){
+      var idx = {'e-q1':0,'e-q2':1,'e-q3':2}[id];
+      segs.forEach(function(s,k){ s.classList.toggle('on', k<=idx); });
+    }
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  document.querySelectorAll('.choix').forEach(function(bloc){
+    bloc.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){ montrer(i+1); });
+    });
+  });
 
   var oui = document.getElementById('oui');
   oui.setAttribute('href', URL_CONTINUAR || '#');
-  oui.addEventListener('click', function(e){
-    if(!URL_CONTINUAR || URL_CONTINUAR === 'VSL_URL_AQUI'){
-      e.preventDefault();
-      alert('Configurez --url-continuar dans le code (VSL_URL_AQUI).');
-    }
-  });
+  oui.addEventListener('click', function(e){ if(!URL_CONTINUAR){ e.preventDefault(); } });
 
   document.getElementById('non').addEventListener('click', function(){
     if(TELA_DESPEDIDA){
-      document.getElementById('porte').style.display='none';
-      document.getElementById('adieu').classList.add('on');
+      document.querySelector('.wrap').innerHTML =
+        '<div style="flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:40px 0">'
+        +'<h1 style="text-align:center">Comme vous voulez.</h1>'
+        +'<p class="intro" style="max-width:360px;margin:0 auto">Merci de votre visite. Prenez soin de vous — et revenez quand le moment sera venu.</p>'
+        +'</div>';
       window.scrollTo({top:0,behavior:'smooth'});
     }else{
       window.location.href = URL_RECUSA;
