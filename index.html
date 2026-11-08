@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400;62..125,500;62..125,600;62..125,800&display=swap" rel="stylesheet">
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
 <style>
   /* ============================================================
      CONFIGURAÇÃO — mexa só aqui
@@ -240,9 +241,24 @@
     });
   });
 
+  /* Repassa UTMs, fbclid e demais parâmetros da URL para a próxima página */
+  function comParametros(url){
+    if(!url) return url;
+    try{
+      var destino = new URL(url, window.location.href);
+      new URLSearchParams(window.location.search).forEach(function(v,k){
+        if(!destino.searchParams.has(k)) destino.searchParams.set(k, v);
+      });
+      return destino.toString();
+    }catch(e){ return url; }
+  }
+
   var oui = document.getElementById('oui');
-  oui.setAttribute('href', URL_CONTINUAR || '#');
-  oui.addEventListener('click', function(e){ if(!URL_CONTINUAR){ e.preventDefault(); } });
+  oui.setAttribute('href', comParametros(URL_CONTINUAR) || '#');
+  oui.addEventListener('click', function(e){
+    if(!URL_CONTINUAR){ e.preventDefault(); return; }
+    oui.setAttribute('href', comParametros(oui.href || URL_CONTINUAR));
+  });
 
   document.getElementById('non').addEventListener('click', function(){
     if(TELA_DESPEDIDA){
